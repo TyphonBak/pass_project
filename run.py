@@ -1,6 +1,6 @@
 from flask import Flask
 from jogo_app.jogo import jogo_app
-from system import os
+import os
 
 def create_app():
     app = Flask(__name__)
