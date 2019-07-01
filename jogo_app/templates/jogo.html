@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="col-md-4 offset-md-4">
+    <!--Novo Chute-->
+    <form action="" method="POST">
+        <div class="form-group">
+            <label for="chute">Marque seu Chute</label>
+            <div class="input-group entrada-chute">
+                <input type="number" class="form-control" name="chute" id="chute" min="0" max="9" required>
+                <input type="number" class="form-control" name="chute" min="0" max="9" required>
+                <input type="number" class="form-control" name="chute" min="0" max="9" required>
+                <input type="number" class="form-control" name="chute" min="0" max="9" required>
+            </div>
+        </div>
+        <div class="mx-auto">
+            <button type="submit" class="btn btn-primary">Chutar</button>
+        </div>
+    </form>
+</div>
+
+
+<div class="col-md-8 offset-md-2">
+<hr />
+<!--Chutes Registrados-->
+    <h5 class="text-center">Chutes Realizados</h5>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Chute</th>
+                    <th>Resultado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>chute1</td>
+                    <td>resultado1</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>chute2</td>
+                    <td>resultado2</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

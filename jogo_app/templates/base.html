@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id" content="1020733845659-r5u1m3e1e07s1knm5edpaqquir4sa3ei.apps.googleusercontent.com">
+    <title>Jogo</title>
+    <link rel="stylesheet" href="{{ url_for('jogo_app.static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('jogo_app.static', filename='css/jogo_senha.css') }}">
+</head>
+<body>
+    <header>
+        <h1 class='text-center'>Jogo Da Senha</h1>
+        <ul class="nav nav-pills nav-justified">
+            <li role="presentation" class="active"><a href="{{ url_for('jogo_app.index') }}">Home</a></li>
+            <li role="presentation"><a href="#">NotHome</a></li>
+            <li role="presentation"><a href="#">Home</a></li>
+        </ul>
+        
+    </header>
+    <div class='container'>
+        {% block content %}
+        {% endblock %}
+    </div>
+
+
+    <script src="{{ url_for('jogo_app.static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('jogo_app.static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="{{ url_for('jogo_app.static', filename='js/jogo-senha.js') }}"></script>
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+            console.log('User signed out.');
+            });
+        }
+    </script>
+</body>
+</html>
