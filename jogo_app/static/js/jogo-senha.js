@@ -6,5 +6,5 @@ function onSignIn(googleUser) {
         "nome": profile.getName(),
         "email": profile.getEmail()
     }
-    $.post('http://localhost:5000/authroute', data=JSON.stringify({'usuario': user}));
+    $.post('http://localhost:5000/authroute', user);
 }

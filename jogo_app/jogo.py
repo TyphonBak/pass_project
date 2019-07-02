@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from jogo_app.services.jogo_service import novo as novo_service, buscar as buscar_service
+import json
 
 jogo_app = Blueprint('jogo_app', __name__, static_folder='static', template_folder='templates', static_url_path='/jogo_app-static')
 
 @jogo_app.route('/')
 def index():
-    print('Google: ',session.get('access_token'))
+    print('Google: ', session.get('access_token'))
     #import ipdb; ipdb.set_trace()
     return render_template('index.html')
 
@@ -31,6 +32,6 @@ def faz_jogada():
 def authroute():
     res = request.form
     print('Rota de Autorizacao: ', res)
-    #access_token = res['access_token']
-    #session['access_token'] = access_token
-    redirect(url_for('jogo_app.index'))
+    access_token = res.get('token')
+    session['access_token'] = access_token
+    return redirect(url_for('.index'))
