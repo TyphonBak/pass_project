@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
-from jogo_app.services.jogo_service import novo as novo_service, buscar as buscar_service
+from jogo_app.services.jogo_service import novo as novo_service, buscar as buscar_service, faz_jogada as fazjogada_service
 import json
 
 jogo_app = Blueprint('jogo_app', __name__, static_folder='static', template_folder='templates', static_url_path='/jogo_app-static')
@@ -17,16 +17,17 @@ def novo():
     return render_template('jogo.html')
 
 @jogo_app.route('/jogo/<int:id_jogo>', methods=['GET'])
-def busca(id_jogo):
-    jogo = buscar_service()
+def jogo(id_jogo=None):
+    jogo = buscar_service(id_jogo)
     context = {'jogo': jogo}
     return render_template('jogo.html', context)
 
-@jogo_app.route('/jogo', methods=['POST'])
-def faz_jogada():
+@jogo_app.route('/jogo/<int:id_jogo>', methods=['POST'])
+def faz_jogada(id_jogo):
     print('bateu: ', request.form)
-    print(request.headers.get('your-header-name'))
-    return redirect(url_for('jogo_app.novo'))
+    res = fazjogada_service({'id_jogo': id_jogo, 'chute': request.form})
+    #print(request.headers.get('your-header-name'))
+    return redirect(url_for('.jogo', id_jogo=id_jogo))
 
 @jogo_app.route('/authroute', methods=['POST'])
 def authroute():

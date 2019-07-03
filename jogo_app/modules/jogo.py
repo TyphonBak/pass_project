@@ -1,7 +1,7 @@
 from jogo_app.modules.jogada import Jogada
 
 class Jogo:
-    def __init__(self, jogador1, jogador2, id=None):
+    def __init__(self, jogador1, jogador2=None, id=None):
         self.id = id
         self.jogador1 = jogador1
         self.segredo_j1 = None
@@ -15,9 +15,21 @@ class Jogo:
     def fazJogada(self, jogador, chute):
         if self.turno == jogador:
             dados = { 'jogador': jogador, 'chute': chute, 'jogo': self}
-            self.mudaTurno()
-            return Jogada.cria(dados)
+            jogada = Jogada.cria(dados)
+            if self.jogador2 != None:
+                self.mudaTurno()
+            return jogada
         return None
+
+    def acertou(self, jogada):
+        if jogada.jogador == self.jogador1 and jogada.chute == self.segredo_j2:
+            return True
+        elif jogada.jogador == self.jogador2 and jogada.chute == self.segredo_j1:
+            return True
+        return False
+
+    def finaliza_jogo(self):
+        self.turno = None
 
     def define_segredo(self, jogador, segredo):
         if jogador==self.jogador1:
