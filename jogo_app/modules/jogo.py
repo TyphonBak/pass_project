@@ -33,7 +33,7 @@ class Jogo:
 
     def define_segredo(self, jogador, segredo):
         if jogador==self.jogador1:
-            self.segredo_j1 = segredo
+            self.segredo_j1 = 1234
         elif jogador==self.jogador2:
             self.segredo_j2 = segredo
 

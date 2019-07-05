@@ -15,8 +15,8 @@ def conecta(comando, dados):
         cursor.close()
         conexao.close()
 
-def listar(dados):
-    comando = 'SELECT (id, jogador, chute, jogo) FROM Jogada WHERE jogo==:jogo'
+def buscar(dados):
+    comando = 'SELECT (id, jogador, chute, jogo) FROM Jogada WHERE jogo==:id_jogo'
     return conecta(comando, dados)
 
 def novo(dados):
