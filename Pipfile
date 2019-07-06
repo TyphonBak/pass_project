@@ -11,6 +11,10 @@ ipdb = "*"
 flask-oauth = "*"
 google = "*"
 google-auth = "*"
+google-api-python-client = "*"
+google-auth-httplib2 = "*"
+google-auth-oauthlib = "*"
+jsonify = "*"
 
 [requires]
 python_version = "3.7"

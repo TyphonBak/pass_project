@@ -6,6 +6,7 @@ def create_app():
     app = Flask(__name__)
 
     app.register_blueprint(jogo_app)
+    app.db = 'jogo_senha.db'
     app.secret_key = 'development key'
 
     return app

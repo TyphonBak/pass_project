@@ -9,7 +9,7 @@ def conecta(comando, dados):
         cursor.execute(comando, dados)
         return cursor.fetchall()
     except Exception as e:
-        print('Alerta: ', e)
+        print('Alerta(Jogo DB): ', e)
         return None
     finally:
         cursor.close()

@@ -50,9 +50,9 @@ class Jogo:
     @staticmethod
     def cria_de_tupla(dados):
         try:
-            id = dados['id']
-            jogador1 = dados['jogador1']
-            jogador2 = dados['jogador2']
+            id = dados[0]
+            jogador1 = dados[1]
+            jogador2 = dados[2]
             return Jogo(jogador1, jogador2, id)
         except Exception as e:
             print('Alerta ao criar jogo²: ', e)

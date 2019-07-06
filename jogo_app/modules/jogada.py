@@ -5,7 +5,7 @@ class Jogada:
         self.jogo = jogo
 
     @staticmethod
-    def cria(self, dados):
+    def cria(dados):
         try:
             jogador = dados['jogador']
             chute = dados['chute']

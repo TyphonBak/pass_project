@@ -1,6 +1,7 @@
+import requests as req
 from google.oauth2 import id_token
 from google.auth.transport import requests
-
+'''
 def valid_token(token):
     # (Receive token by HTTPS POST)
     # ...
@@ -26,5 +27,14 @@ def valid_token(token):
         return True, userid
     except ValueError:
         # Invalid token
+        print("Invalid Token")
+        return False, None
+'''
+def valid_token(token):
+    res = req.get(f'https://oauth2.googleapis.com/tokeninfo?id_token={token}')
+    if res.status_code == 200:
+        userid = res.json()['sub']
+        return True, userid
+    else:
         print("Invalid Token")
         return False, None
