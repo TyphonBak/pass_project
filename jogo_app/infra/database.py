@@ -15,8 +15,8 @@ def cria():
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \
             jogador1 INTEGER NOT NULL, \
             jogador2 INTEGER, \
-            segredo1 TEXT NOT NULL, \
-            segredo2 TEXT NOT NULL, \
+            segredo1 TEXT, \
+            segredo2 TEXT, \
             turno INTEGER NOT NULL, \
             FOREIGN KEY(jogador1) REFERENCES Usuario(id), \
             FOREIGN KEY(jogador2) REFERENCES Usuario(id), \
@@ -27,7 +27,8 @@ def cria():
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \
             jogo INTEGER NOT NULL, \
             jogador INTEGER NOT NULL, \
-            chute INTEGER NOT NULL, \
+            chute TEXT NOT NULL, \
+            qualidade TEXT NOT NULL, \
             FOREIGN KEY(jogo) REFERENCES Jogo(id), \
             FOREIGN KEY(jogador) REFERENCES Usuario(id) \
         );")
@@ -54,11 +55,18 @@ def deleta():
         cursor.close()
         conexao.close()
 
+def reseta():
+    deleta()
+    cria()
+    print('Banco Resetado com sucesso')
+
 if __name__ == '__main__':
-    opcao = input("Deseja criar(1) ou deletar(0) o banco ?")
+    opcao = input("Deseja deletar(0), criar(1) ou resetar(2) o banco ?")
     if opcao == '0':
         deleta()
     elif opcao == '1':
         cria()
+    elif opcao == '2':
+        reseta()
     else:
         print("Opcao invalida! Execute novamente.")

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="text-center">Em construção {{ session['usuario']['nome'] }}</h1>
+<h1 class="text-center">Em construção {{ session['usuario']['nome'] if session.get('usuario') else '' }}</h1>
 <div class="container-fluid">
     
     <div class="row">

@@ -34,7 +34,8 @@ def buscar(dados):
     else:
         return { 'erro': 'id_usuario e google_id não passados' }
     comando = 'SELECT id, nome, email, google_id FROM Usuario'+comp
-    return Usuario.cria_de_tupla(conecta(comando, dados)[0])
+    res = conecta(comando, dados)
+    return Usuario.cria_de_tupla(res[0]) if len(res) else None
 
 def novo(dados):
     comando = 'INSERT INTO Usuario (nome, email, google_id) VALUES (:nome, :email, :google_id)'

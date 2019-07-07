@@ -6,8 +6,16 @@ def conecta(comando, dados):
     conexao = sqlite3.connect(current_app.db)
     try:
         cursor = conexao.cursor()
-        cursor.execute(comando, dados)
-        return cursor.fetchall()
+        if dados:
+            cursor.execute(comando, dados)
+        else:
+            cursor.execute(comando)
+        if 'INSERT' in comando:
+            conexao.commit()
+        else:
+            result = cursor.fetchall()
+            print('Resultado: ', result)
+            return result
     except Exception as e:
         print('Alerta(Jogada DB): ', e)
         return None
@@ -16,10 +24,10 @@ def conecta(comando, dados):
         conexao.close()
 
 def buscar(dados):
-    comando = 'SELECT (id, jogador, chute, jogo) FROM Jogada WHERE jogo==:id_jogo'
-    return conecta(comando, dados)
+    comando = 'SELECT id, jogador, chute, jogo, qualidade FROM Jogada WHERE jogo==:jogo'
+    return [Jogada.cria_de_tupla(jogada) for jogada in filter(lambda jg: jg != None, conecta(comando, dados))]
 
 def novo(dados):
-    comando = 'INSERT INTO Jogada (jogador, chute, jogo) VALUES (:jogador, :chute, :jogo)'
+    comando = 'INSERT INTO Jogada (jogador, chute, jogo, qualidade) VALUES (:jogador, :chute, :jogo, :qualidade)'
     conecta(comando, dados)
-    return listar(dados=dados)[-1]
+    return buscar(dados=dados)[-1]

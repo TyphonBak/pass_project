@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
-from jogo_app.services.jogo_service import novo as novo_service, buscar as buscar_service, faz_jogada as fazjogada_service
-from jogo_app.services.jogadas_service import buscar as buscar_jogadas_service
+from jogo_app.services.jogo_service import novo as novo_service, buscar as buscar_service
+from jogo_app.services.jogadas_service import buscar as buscar_jogadas_service, faz_jogada as fazjogada_service
 from jogo_app.services.usuario_service import loga_usuario as loga_usuario_service
 from jogo_app.modules.usuario import Usuario
 import json
@@ -17,15 +17,16 @@ def index():
 @jogo_app.route('/jogo/', methods=['GET'])
 def jogo(id_jogo=None):
     jogadas = buscar_jogadas_service({ 'id_jogo': id_jogo })
-    jogo = buscar_service({'id_jogo': id_jogo, 'id_jogador': session.get('access_token')})
-    context = {'jogo': jogo, 'jogadas': jogadas}
-    return render_template('jogo.html', id_jogo=1, context=context)
+    jogo = buscar_service({'id_jogo': id_jogo, 'id_jogador': session.get('usuario').get('id')})
+    session['jogo'] = jogo
+    session['jogadas'] = jogadas
+    return render_template('jogo.html')
 
 @jogo_app.route('/jogo/<int:id_jogo>', methods=['POST'])
 def faz_jogada(id_jogo):
     print('bateu: ', request.form)
     print('jogo atual: ', session['jogo'])
-    res = fazjogada_service({'id_jogo': id_jogo, 'chute': request.form})
+    res = fazjogada_service({'id_jogo': id_jogo, 'id_jogador': session.get('usuario').get('id')  ,'chute': request.form})
     #print(request.headers.get('your-header-name'))
     return redirect(url_for('.jogo', id_jogo=id_jogo))
 
@@ -34,6 +35,7 @@ def authroute():
     res = request.form
     print('Rota de Autorizacao: ', res)
     usuario = loga_usuario_service(res)
+    print('USuario: ',usuario.__dict__())
     if not isinstance(usuario, Usuario):
         print('Erro ao logar: ', usuario)
         return jsonify(usuario)

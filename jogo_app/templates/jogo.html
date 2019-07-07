@@ -3,7 +3,7 @@
 
 <div class="col-md-4 offset-md-4">
     <!--Novo Chute-->
-    <form action="" method="POST">
+    <form action="{{ url_for('jogo_app.faz_jogada', id_jogo=session['jogo']['id']) }}" method="POST">
         <div class="form-group">
             <label for="chute">Marque seu Chute</label>
             <div class="input-group entrada-chute">
@@ -30,20 +30,17 @@
                 <tr>
                     <th>#</th>
                     <th>Chute</th>
-                    <th>Resultado</th>
+                    <th>Ótimo | Bom | Ruim</th>
                 </tr>
             </thead>
             <tbody>
+                {% for jogada in session.get('jogadas') %}
                 <tr>
-                    <td>1</td>
-                    <td>chute1</td>
-                    <td><p>{{ context['jogo'].segredo_j1 }}</p></td>
+                    <td>{{ jogada.get('id') }}</td>
+                    <td>{{ jogada.get('chute') }}</td>
+                    <td>{{ jogada.get('qualidade') }}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>chute2</td>
-                    <td>resultado2</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

@@ -10,7 +10,7 @@ def verifica_usuario(usuario):
     usuario_existente = buscar_db({ 'google_id': usuario.google_id })
     print('Usuario existente: ',usuario_existente)
     if isinstance(usuario_existente, Usuario):
-        return usuario
+        return usuario_existente
     else:
         return novo(usuario.__dict__())
 
