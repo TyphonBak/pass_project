@@ -9,7 +9,7 @@ jogo_app = Blueprint('jogo_app', __name__, static_folder='static', template_fold
 
 @jogo_app.route('/')
 def index():
-    print('Google: ', session.get('access_token'))
+    session['titulo'] = 'Jogo Senha'
     #import ipdb; ipdb.set_trace()
     return render_template('index.html')
 

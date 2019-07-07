@@ -1,3 +1,18 @@
+.titulo {
+    text-align: center;
+}
+
+.bd-navbar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1071;
+}
+
 .entrada-chute {
     padding: 0;
+}
+
+.tabela-resultado {
+    height: 25%;
 }

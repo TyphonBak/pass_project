@@ -1,15 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="text-center">Em construção {{ session['usuario']['nome'] if session.get('usuario') else '' }}</h1>
-<div class="container-fluid">
-    
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            <a href="#" onclick="signOut();">Sign out</a>
-            <a href="{{ url_for('jogo_app.jogo') }}" id="criajogo" class="btn btn-primary btn-lg btn-block">Single Player</a>
-            <a href="#" class="btn btn-primary btn-lg btn-block">Histórico</a>
-        </div>
-    </div>
+<div class="col-md-6 offset-md-3">
+    <a href="{{ url_for('jogo_app.jogo') }}" id="criajogo" class="btn btn-primary btn-lg btn-block">Single Player</a>
+    <a href="#" class="btn btn-primary btn-lg btn-block">Histórico</a>
 </div>
 {% endblock %}

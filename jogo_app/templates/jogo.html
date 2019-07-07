@@ -7,7 +7,7 @@
         <div class="form-group">
             <label for="chute">Marque seu Chute</label>
             <div class="input-group entrada-chute">
-                <input type="number" class="form-control" name="chute" id="chute" min="0" max="9" required>
+                <input type="number" class="form-control" name="chute" id="chute" min="0" max="9" autofocus required>
                 <input type="number" class="form-control" name="chute" min="0" max="9" required>
                 <input type="number" class="form-control" name="chute" min="0" max="9" required>
                 <input type="number" class="form-control" name="chute" min="0" max="9" required>
@@ -26,11 +26,16 @@
     <h5 class="text-center">Chutes Realizados</h5>
     <div class="table-responsive">
         <table class="table table-striped">
-            <thead>
+            <thead class="thead-dark">
                 <tr>
-                    <th>#</th>
-                    <th>Chute</th>
-                    <th>Ótimo | Bom | Ruim</th>
+                    <th rowspan="2" width="30">#</th>
+                    <th rowspan="2" width="300">Chute</th>
+                    <th colspan="3" width="90" class="tabela-resultado">Resultado</th>
+                </tr>
+                <tr>
+                    <th class="tabela-resultado">Ótimo</th>
+                    <th class="tabela-resultado">Bom</th>
+                    <th class="tabela-resultado">Ruim</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +43,9 @@
                 <tr>
                     <td>{{ jogada.get('id') }}</td>
                     <td>{{ jogada.get('chute') }}</td>
-                    <td>{{ jogada.get('qualidade') }}</td>
+                    <td>{{ jogada.get('qualidade')[0] }}</td>
+                    <td>{{ jogada.get('qualidade')[1] }}</td>
+                    <td>{{ jogada.get('qualidade')[2] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -10,18 +10,43 @@
     <link rel="stylesheet" href="{{ url_for('jogo_app.static', filename='css/jogo_senha.css') }}">
 </head>
 <body>
-    <header>
-        <h1 class='text-center'>Jogo Da Senha</h1>
-        <ul class="nav nav-pills nav-justified">
-            <li role="presentation" class="active"><a href="{{ url_for('jogo_app.index') }}">Home</a></li>
-            <li role="presentation"><a href="#">NotHome</a></li>
-            <li role="presentation"><a href="#">Home</a></li>
-        </ul>
-        
+    <header class="navbar sticky-top navbar-expand navbar-dark bg-dark flex-column flex-md-row bd-navbar">        
+        <a class="navbar-brand" href="#">TyBak</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inicio</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Jogo Senha
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url_for('jogo_app.index') }}">Menu</a>
+                        <a class="dropdown-item" href="{{ url_for('jogo_app.jogo') }}">Jogar</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item disabled" href="#">Histórico</a>
+                    </div>
+                </li>
+            </ul>
+            {% if session.get('usuario') %}
+            <a href="#" onclick="signOut();">Sign out</a>
+            {% else %}
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            {% endif %}
+        </div>        
     </header>
-    <div class='container'>
-        {% block content %}
-        {% endblock %}
+    <div class="container-fluid">
+        <div class="row flex-x1-nowrap">
+            <main class="col-12 col-md-9 offset-md-1 col-xl-8 py-md-3 pl-md-5 bd-content">
+                <h1 class="titulo">{{ session.get('titulo') }}</h1>
+                {% block content %}
+                {% endblock %}
+            </main>
+        </div>
     </div>
 
 
