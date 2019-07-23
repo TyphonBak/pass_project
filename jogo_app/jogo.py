@@ -16,18 +16,22 @@ def index():
 @jogo_app.route('/jogo/<int:id_jogo>', methods=['GET'])
 @jogo_app.route('/jogo/', methods=['GET'])
 def jogo(id_jogo=None):
-    jogadas = buscar_jogadas_service({ 'id_jogo': id_jogo })
-    jogo = buscar_service({'id_jogo': id_jogo, 'id_jogador': session.get('usuario').get('id')})
-    session['jogo'] = jogo
-    session['jogadas'] = jogadas
+    if not session.get('jogo'):
+        jogadas = buscar_jogadas_service({ 'id_jogo': id_jogo })
+        jogo = buscar_service({'id_jogo': id_jogo, 'id_jogador': session.get('usuario').get('id') if session.get('usuario') else session.get('usuario')})
+        session['jogo'] = jogo
+        session['jogadas'] = jogadas
     return render_template('jogo.html')
 
 @jogo_app.route('/jogo/<int:id_jogo>', methods=['POST'])
-def faz_jogada(id_jogo):
+@jogo_app.route('/jogo/', methods=['POST'])
+def faz_jogada(id_jogo=None):
     print('bateu: ', request.form)
     print('jogo atual: ', session['jogo'])
-    res = fazjogada_service({'id_jogo': id_jogo, 'id_jogador': session.get('usuario').get('id')  ,'chute': request.form})
+    id_usuario = session.get('usuario').get('id') if session.get('usuario') != None else 'Anonimo'
+    res = fazjogada_service({'jogo': session.get('jogo'), 'id_jogador': id_usuario  ,'chute': request.form})    
     #print(request.headers.get('your-header-name'))
+    print('Jogadas:', session['jogadas'])
     return redirect(url_for('.jogo', id_jogo=id_jogo))
 
 @jogo_app.route('/authroute', methods=['POST'])
@@ -41,3 +45,5 @@ def authroute():
         return jsonify(usuario)
     session['usuario'] = usuario.__dict__()
     return redirect(url_for('.index'))
+
+from .events import nova_jogada, conectado

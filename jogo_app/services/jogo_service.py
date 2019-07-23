@@ -7,6 +7,8 @@ def novo(dados):
     jogo = Jogo.cria(dados)
     if not dados.get('jogador2'):
         jogo.define_segredo(jogo.jogador1, None)
+    if jogo.jogador1 == 'Anonimo':
+        return jogo
     try:
         return novo_db(jogo.__dict__())
     except Exception as e:
@@ -15,7 +17,7 @@ def novo(dados):
 
 def buscar(dados):
     if dados.get('id_jogo') == None:
-        jogo = novo({ 'jogador1': dados.get('id_jogador') })
+        jogo = novo({ 'jogador1': dados.get('id_jogador') if dados.get('id_jogador') else 'Anonimo' })
     else:
         jogo = buscar_db( { 'id_jogo': dados.get('id_jogo') })
     print('Este eh o jogo', jogo.__dict__())
