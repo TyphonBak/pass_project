@@ -39,15 +39,17 @@
                 </tr>
             </thead>
             <tbody>
-                {% for jogada in session.get('jogadas') %}
-                <tr>
-                    <td>{{ jogada.get('id') }}</td>
-                    <td>{{ jogada.get('chute') }}</td>
-                    <td>{{ jogada.get('qualidade')[0] }}</td>
-                    <td>{{ jogada.get('qualidade')[1] }}</td>
-                    <td>{{ jogada.get('qualidade')[2] }}</td>
-                </tr>
-                {% endfor %}
+                {% if session.get('jogadas') %}
+                    {% for jogada in session.get('jogadas') | reverse %}
+                    <tr>
+                        <td>{{ loop.revindex }}</td>
+                        <td>{{ jogada.get('chute') }}</td>
+                        <td>{{ jogada.get('qualidade')[0] }}</td>
+                        <td>{{ jogada.get('qualidade')[1] }}</td>
+                        <td>{{ jogada.get('qualidade')[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </div>

@@ -10,6 +10,7 @@ jogo_app = Blueprint('jogo_app', __name__, static_folder='static', template_fold
 @jogo_app.route('/')
 def index():
     session['titulo'] = 'Jogo Senha'
+    print('Index Jogadas: ', session.get('jogadas'))
     #import ipdb; ipdb.set_trace()
     return render_template('index.html')
 
@@ -21,6 +22,7 @@ def jogo(id_jogo=None):
         jogo = buscar_service({'id_jogo': id_jogo, 'id_jogador': session.get('usuario').get('id') if session.get('usuario') else session.get('usuario')})
         session['jogo'] = jogo
         session['jogadas'] = jogadas
+    print('Jogadas Atuais: ',session.get('jogadas'))
     return render_template('jogo.html')
 
 @jogo_app.route('/jogo/<int:id_jogo>', methods=['POST'])
@@ -46,4 +48,4 @@ def authroute():
     session['usuario'] = usuario.__dict__()
     return redirect(url_for('.index'))
 
-from .events import nova_jogada, conectado
+from .events import nova_jogada

@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="col-md-6 offset-md-3">
-    <a href="{{ url_for('jogo_app.jogo') }}" id="criajogo" class="btn btn-primary btn-lg btn-block">Single Player</a>
+    {% if session.get('jogo') %}
+    <a href="{{ url_for('jogo_app.jogo') }}" class="btn btn-primary btn-lg btn-block">Continuar</a>
+    {% endif %}
+    <a href="{{ url_for('jogo_app.jogo') }}" id="criajogo" class="btn btn-primary btn-lg btn-block">Novo Jogo</a>
     <a href="#" class="btn btn-primary btn-lg btn-block">Histórico</a>
 </div>
 {% endblock %}

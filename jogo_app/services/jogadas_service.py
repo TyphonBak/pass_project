@@ -14,7 +14,7 @@ def buscar(dados):
         return session.get('jogadas') if session.get('jogadas') else []
 
 def faz_jogada(dados):
-    chute = converte_lista_para_str(dados.get('chute').getlist('chute'))
+    chute = converte_lista_para_str(dados.get('chute'))
     dados_jogo = buscar_jogo_service({ 'id_jogo': dados.get('jogo').get('id') }) if dados.get('jogo').get('id') else dados.get('jogo')
     jogo = Jogo.cria(dados_jogo)
     jogada = jogo.faz_jogada(dados.get('id_jogador'), chute)
@@ -22,9 +22,8 @@ def faz_jogada(dados):
     if isinstance(jogo, Jogo):
         if isinstance(jogada, Jogada):
             if jogo.jogador1 == 'Anonimo':
-                print('Antes:', session['jogadas'])
-                session['jogadas'].append(jogada.__dict__())
-                print('Depois', session['jogadas'])
+                print('-----------Adicionou na sessao')
+                session['jogadas'] += [jogada.__dict__()]
             else:
                 jogada = novo_db(jogada.__dict__())
             if jogo.acertou(jogada):

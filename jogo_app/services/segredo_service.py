@@ -21,7 +21,7 @@ def compara(chute, segredo):
             resultado['otimo'] += 1
             chute_lista[i] = None
             segredo_lista[i] = None
-    for valor in chute_lista:
+    for valor in [item for item in chute_lista if item != None]:
         if valor in segredo_lista:
             resultado['bom'] += 1
         else:
