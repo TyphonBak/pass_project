@@ -30,7 +30,7 @@ class Jogo:
         return False
 
     def finaliza_jogo(self):
-        self.turno = None
+        self.turno = 'None'
 
     def define_segredo(self, jogador, segredo):
         if jogador==self.jogador1 and segredo!=None:

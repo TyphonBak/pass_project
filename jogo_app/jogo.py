@@ -17,6 +17,8 @@ def index():
 @jogo_app.route('/jogo/<int:id_jogo>', methods=['GET'])
 @jogo_app.route('/jogo/', methods=['GET'])
 def jogo(id_jogo=None):
+    if id_jogo != None and session.get('usuario') == None:
+        return redirect(url_for('.index'))
     if not session.get('jogo'):
         jogadas = buscar_jogadas_service({ 'id_jogo': id_jogo })
         jogo = buscar_service({'id_jogo': id_jogo, 'id_jogador': session.get('usuario').get('id') if session.get('usuario') else session.get('usuario')})
@@ -24,17 +26,6 @@ def jogo(id_jogo=None):
         session['jogadas'] = jogadas
     print('Jogadas Atuais: ',session.get('jogadas'))
     return render_template('jogo.html')
-
-@jogo_app.route('/jogo/<int:id_jogo>', methods=['POST'])
-@jogo_app.route('/jogo/', methods=['POST'])
-def faz_jogada(id_jogo=None):
-    print('bateu: ', request.form)
-    print('jogo atual: ', session['jogo'])
-    id_usuario = session.get('usuario').get('id') if session.get('usuario') != None else 'Anonimo'
-    res = fazjogada_service({'jogo': session.get('jogo'), 'id_jogador': id_usuario  ,'chute': request.form})    
-    #print(request.headers.get('your-header-name'))
-    print('Jogadas:', session['jogadas'])
-    return redirect(url_for('.jogo', id_jogo=id_jogo))
 
 @jogo_app.route('/authroute', methods=['POST'])
 def authroute():

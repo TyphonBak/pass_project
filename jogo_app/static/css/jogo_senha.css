@@ -16,3 +16,11 @@
 .tabela-resultado {
     height: 25%;
 }
+
+.alert {
+    margin: 5px;
+}
+
+#exampleModal {
+    margin-top: 70px;
+}

@@ -18,22 +18,17 @@ def faz_jogada(dados):
     dados_jogo = buscar_jogo_service({ 'id_jogo': dados.get('jogo').get('id') }) if dados.get('jogo').get('id') else dados.get('jogo')
     jogo = Jogo.cria(dados_jogo)
     jogada = jogo.faz_jogada(dados.get('id_jogador'), chute)
-    jogada.qualidade = qualifica_chute(jogo, jogada)
     if isinstance(jogo, Jogo):
         if isinstance(jogada, Jogada):
-            if jogo.jogador1 == 'Anonimo':
-                print('-----------Adicionou na sessao')
-                session['jogadas'] += [jogada.__dict__()]
-            else:
+            jogada.qualidade = qualifica_chute(jogo, jogada)
+            if jogo.jogador1 != 'Anonimo':
                 jogada = novo_db(jogada.__dict__())
+            session['jogadas'] += [jogada.__dict__()]
             if jogo.acertou(jogada):
                 jogo.finaliza_jogo()
                 #retorna jogo + status da jogada (verificar se o codigo de retorno esta adequado)
                 return { 'code': 302, 'jogo': jogo}            
             return { 'code': 302, 'jogo': jogo}
-        elif jogo.turno == None:
-            #retornar que o jogo ja terminou
-            pass
         else:
             #(verificar se o codigo de retorno esta adequado)
             return {'code': 400, 'msg': 'Não foi possivel realizar a jogada. Contate o suporte'}
