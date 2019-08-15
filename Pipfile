@@ -18,6 +18,7 @@ jsonify = "*"
 flask-socketio = "*"
 eventlet = "*"
 flask-session = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
