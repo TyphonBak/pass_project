@@ -356,7 +356,11 @@
                 "sha256:2a4c874aea686e79f8ea9efc30748110df581df6d577d18bb5eaa1a8f2199d12",
                 "sha256:eae09ef72bbb13e66ad0bbe2fbb87271e0ba5e2ec8c6693c6be1e14239564e32"
             ],
+<<<<<<< HEAD
             "version": "==3.9.3"
+=======
+            "version": ">=3.9.0"
+>>>>>>> c1367dc862c55999ae5281faba86dc56672a1c42
         },
         "python-socketio": {
             "hashes": [
