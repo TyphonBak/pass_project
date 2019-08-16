@@ -1,1 +1,1 @@
-web: gunicorn -k eventlet pass_project:app
+web: gunicorn -k eventlet app:app
