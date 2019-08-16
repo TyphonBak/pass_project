@@ -1,1 +1,1 @@
-web: gunicorn -k eventlet app:socketio
+web: gunicorn -k eventlet app:app
