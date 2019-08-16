@@ -1,4 +1,8 @@
-console.log('Jogo-Senha JS')
+if (window.location.protocol == "https:") {
+    var ws_scheme = "wss://";
+} else {
+    var ws_scheme = "ws://"
+};
 var criaAlerta = function(texto) {
     return `<div class="alert alert-danger alert-dismissible fade show" role="alert"> \
         <strong>Eita!</strong> ${texto} \
@@ -44,7 +48,7 @@ var criaModal = function(dados) {
 
 var jogoForm = document.getElementById("jogoForm");
 var socket;
-socket = io.connect('http://' + document.domain + ':' + location.port + '/');
+socket = io.connect(ws_scheme + location.host + '/');
 
 socket.on('retorna jogada', function(dados) {
     numero = $('#tabela-chutes tr').length-1;
@@ -114,5 +118,5 @@ function onSignIn(googleUser) {
         "nome": profile.getName(),
         "email": profile.getEmail()
     }
-    $.post('http://localhost:5000/authroute', user);
+    $.post(ws_scheme + location.host + '/authroute', user);
 }
