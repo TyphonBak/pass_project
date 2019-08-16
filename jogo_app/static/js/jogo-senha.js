@@ -48,7 +48,7 @@ var criaModal = function(dados) {
 
 var jogoForm = document.getElementById("jogoForm");
 var socket;
-socket = io.connect(ws_scheme + location.host + '/');
+socket = io.connect();
 
 socket.on('retorna jogada', function(dados) {
     numero = $('#tabela-chutes tr').length-1;
