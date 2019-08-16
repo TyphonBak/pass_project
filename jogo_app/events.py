@@ -1,7 +1,9 @@
-from flask import session
+from flask import session, redirect, url_for
 from flask_socketio import emit
 from create_app import socketio
 from jogo_app.services.jogadas_service import faz_jogada as fazjogada_service
+from jogo_app.services.usuario_service import loga_usuario as loga_usuario_service
+from jogo_app.modules.usuario import Usuario
 
 @socketio.on('jogada')
 def nova_jogada(dados):
@@ -26,3 +28,15 @@ def nova_jogada(dados):
 def novo_jogo():
     session['jogo'] = None
     session['jogadas'] = []
+
+@socketio.on('authroute')
+def authroute(user):
+    res = user
+    print('Rota de Autorizacao: ', res)
+    usuario = loga_usuario_service(res)
+    print('USuario: ',usuario.__dict__())
+    if not isinstance(usuario, Usuario):
+        print('Erro ao logar: ', usuario)
+        return jsonify(usuario)
+    session['usuario'] = usuario.__dict__()
+    return redirect(url_for('jogo_app.index'))

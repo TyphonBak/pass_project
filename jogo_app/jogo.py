@@ -1,8 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
 from jogo_app.services.jogo_service import novo as novo_service, buscar as buscar_service
 from jogo_app.services.jogadas_service import buscar as buscar_jogadas_service, faz_jogada as fazjogada_service
-from jogo_app.services.usuario_service import loga_usuario as loga_usuario_service
-from jogo_app.modules.usuario import Usuario
 import json
 
 jogo_app = Blueprint('jogo_app', __name__, static_folder='static', template_folder='templates', static_url_path='/jogo_app-static')
@@ -27,16 +25,4 @@ def jogo(id_jogo=None):
     print('Jogadas Atuais: ',session.get('jogadas'))
     return render_template('jogo.html')
 
-@jogo_app.route('/authroute', methods=['POST'])
-def authroute():
-    res = request.form
-    print('Rota de Autorizacao: ', res)
-    usuario = loga_usuario_service(res)
-    print('USuario: ',usuario.__dict__())
-    if not isinstance(usuario, Usuario):
-        print('Erro ao logar: ', usuario)
-        return jsonify(usuario)
-    session['usuario'] = usuario.__dict__()
-    return redirect(url_for('.index'))
-
-from .events import nova_jogada
+from .events import authroute, nova_jogada

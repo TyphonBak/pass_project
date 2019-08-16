@@ -46,7 +46,7 @@ var criaModal = function(dados) {
     return modal
 };
 
-var jogoForm = document.getElementById("jogoForm");
+var jogoForm = $("#jogoForm");
 var socket;
 socket = io.connect();
 
@@ -118,5 +118,5 @@ function onSignIn(googleUser) {
         "nome": profile.getName(),
         "email": profile.getEmail()
     }
-    $.post(ws_scheme + location.host + '/authroute', user);
+    socket.emit('authroute', user);
 }
